@@ -46,9 +46,11 @@ public class Main extends JavaPlugin {
     private int waitFadeIn, waitStay, waitFadeOut, waitRepeat;
     private String releaseTitle, releaseSubtitle, releaseActionbar;
     private int releaseFadeIn, releaseStay, releaseFadeOut;
-    private String reminder, left, leftPlayer, chat, commandInvalid, commandPlayer, commandHelp;
-    private String commandCallUsage, commandCallOffline, commandCallSelf, commandCallExempt, commandCallAlreadyYou, commandCallAlreadyPlayer, commandCallSuccess, commandCallSuccessPlayer;
-    private String commandStoptimerNotChecking, commandStoptimerAlready, commandStoptimerSuccess, commandStoptimerSuccessPlayer;
+    private String reminder, left, leftPlayer, timeout, chat, commandInvalid, commandPlayer, commandHelp;
+    private String commandCallUsage, commandCallOffline, commandCallSelf, commandCallExempt, commandCallAlreadyYou,
+            commandCallAlreadyPlayer, commandCallSuccess, commandCallSuccessPlayer;
+    private String commandStoptimerNotChecking, commandStoptimerAlready, commandStoptimerSuccess,
+            commandStoptimerSuccessPlayer;
     private String commandReleaseNotChecking, commandReleaseSuccess, commandReleaseSuccessPlayer;
     private String commandBanNotChecking, commandBanSuccess;
     private String commandAdmireNotChecking, commandAdmireSuccess;
@@ -65,14 +67,14 @@ public class Main extends JavaPlugin {
     public void onDisable() {
         for (Check c : checkMap.values()) {
             c.end();
-        } 
+        }
         checkMap.clear();
     }
 
     public void loadConfig() {
         for (Check c : checkMap.values()) {
             c.end();
-        } 
+        }
         checkMap.clear();
         saveDefaultConfig();
         reloadConfig();
@@ -109,6 +111,7 @@ public class Main extends JavaPlugin {
         reminder = getConfig().getString("message.reminder").replace('&', '\u00a7');
         left = getConfig().getString("message.left").replace('&', '\u00a7');
         leftPlayer = getConfig().getString("message.leftPlayer").replace('&', '\u00a7');
+        timeout = getConfig().getString("message.timeout").replace('&', '\u00a7');
         chat = getConfig().getString("message.chat").replace('&', '\u00a7');
         commandInvalid = getConfig().getString("message.command.invalid").replace('&', '\u00a7');
         commandPlayer = getConfig().getString("message.command.player").replace('&', '\u00a7');
@@ -121,13 +124,16 @@ public class Main extends JavaPlugin {
         commandCallAlreadyPlayer = getConfig().getString("message.command.call.alreadyPlayer").replace('&', '\u00a7');
         commandCallSuccess = getConfig().getString("message.command.call.success").replace('&', '\u00a7');
         commandCallSuccessPlayer = getConfig().getString("message.command.call.successPlayer").replace('&', '\u00a7');
-        commandStoptimerNotChecking = getConfig().getString("message.command.stoptimer.notChecking").replace('&', '\u00a7');
+        commandStoptimerNotChecking = getConfig().getString("message.command.stoptimer.notChecking").replace('&',
+                '\u00a7');
         commandStoptimerAlready = getConfig().getString("message.command.stoptimer.already").replace('&', '\u00a7');
         commandStoptimerSuccess = getConfig().getString("message.command.stoptimer.success").replace('&', '\u00a7');
-        commandStoptimerSuccessPlayer = getConfig().getString("message.command.stoptimer.successPlayer").replace('&', '\u00a7');
+        commandStoptimerSuccessPlayer = getConfig().getString("message.command.stoptimer.successPlayer").replace('&',
+                '\u00a7');
         commandReleaseNotChecking = getConfig().getString("message.command.release.notChecking").replace('&', '\u00a7');
         commandReleaseSuccess = getConfig().getString("message.command.release.success").replace('&', '\u00a7');
-        commandReleaseSuccessPlayer = getConfig().getString("message.command.release.successPlayer").replace('&', '\u00a7');
+        commandReleaseSuccessPlayer = getConfig().getString("message.command.release.successPlayer").replace('&',
+                '\u00a7');
         commandBanNotChecking = getConfig().getString("message.command.ban.notChecking").replace('&', '\u00a7');
         commandBanSuccess = getConfig().getString("message.command.ban.success").replace('&', '\u00a7');
         commandAdmireNotChecking = getConfig().getString("message.command.admire.notChecking").replace('&', '\u00a7');

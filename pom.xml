@@ -5,10 +5,10 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ru.evatablepvp.echeck</groupId>
   <artifactId>echeck</artifactId>
-  <version>0.1.1-SNAPSHOT</version>
+  <version>0.1.2-SNAPSHOT</version>
   <name>ECheck</name>
   <description>Плагин на проверки для сервера EvatablePvP</description>
-  <url>https://evatablepvp.ru/</url>
+  <url>https://github.com/EvatablePvP/ECheck</url>
   <properties>
     <maven.compiler.source>8</maven.compiler.source>
     <maven.compiler.target>8</maven.compiler.target>

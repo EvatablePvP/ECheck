@@ -17,6 +17,7 @@
 package ru.evatablepvp.echeck.command;
 
 import java.util.Arrays;
+import java.util.Locale;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -54,7 +55,7 @@ public class CommandCheck implements CommandExecutor {
             p.sendMessage(main.getCommandInvalid());
             return true;
         }
-        switch (args[0]) {
+        switch (args[0].toLowerCase(Locale.ROOT)) {
             case "help": {
                 p.sendMessage(main.getCommandHelp());
                 return true;

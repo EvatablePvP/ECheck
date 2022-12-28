@@ -52,6 +52,8 @@ public class Check {
     public void start(Main m) {
         setTime(m.getTime());
         new BukkitRunnable() {
+            private int seconds;
+
             @Override
             public void run() {
                 if (getTime() < 0) {
@@ -59,31 +61,38 @@ public class Check {
                     return;
                 }
                 if (getTime() == 0) {
-                    if (getTime() % m.getWaitRepeat() == 0) {
-                        getTarget().sendTitle(String.format(m.getWaitTitle(), getPlayer().getName(), getTime()),
-                                String.format(m.getWaitSubtitle(), getPlayer().getName(), getTime()), m.getWaitFadeIn(),
+                    if (seconds % m.getWaitRepeat() == 0) {
+                        getTarget().sendTitle(String.format(m.getWaitTitle(), getPlayer().getName()),
+                                String.format(m.getWaitSubtitle(), getPlayer().getName()), m.getWaitFadeIn(),
                                 m.getWaitStay(), m.getWaitFadeOut());
                         getTarget().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent
-                                .fromLegacyText(String.format(m.getWaitActionbar(), getPlayer().getName(), getTime())));
+                                .fromLegacyText(String.format(m.getWaitActionbar(), getPlayer().getName())));
                     }
+                    seconds++;
                     return;
                 }
-                if (getTime() % m.getCallRepeat() == 0) {
+                setTime(getTime() - 1);
+                if (getTime() <= 0) {
+                    cancel();
+                    end();
+                    getPlayer().sendMessage(String.format(m.getTimeout(), getTarget().getName()));
+                    m.getCheckMap().remove(getPlayer());
+                    m.getCheckMap().remove(getTarget());
+                    m.getServer().dispatchCommand(m.getServer().getConsoleSender(),
+                            String.format(m.getTimeoutCommand(), getTarget().getName(), getPlayer().getName()));
+                    return;
+                }
+                if (seconds % m.getCallRepeat() == 0) {
                     getTarget().sendTitle(String.format(m.getCallTitle(), getPlayer().getName(), getTime()),
                             String.format(m.getCallSubtitle(), getPlayer().getName(), getTime()), m.getCallFadeIn(),
                             m.getCallStay(), m.getCallFadeOut());
                     getTarget().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent
                             .fromLegacyText(String.format(m.getCallActionbar(), getPlayer().getName(), getTime())));
                 }
-                if (getTime() % m.getNotifyTime() == 0) {
+                if (seconds % m.getNotifyTime() == 0) {
                     getTarget().sendMessage(String.format(m.getReminder(), getPlayer().getName(), getTime()));
                 }
-                setTime(getTime() - 1);
-                if (getTime() <= 0) {
-                    end();
-                    m.getServer().dispatchCommand(m.getServer().getConsoleSender(),
-                            String.format(m.getTimeoutCommand(), getTarget().getName(), getPlayer().getName()));
-                }
+                seconds++;
             }
         }.runTaskTimer(m, 20, 20);
     }
