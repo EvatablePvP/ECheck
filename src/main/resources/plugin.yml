@@ -1,0 +1,16 @@
+name: ECheck
+version: 0.1.1-SNAPSHOT
+website: "https://github.com/EvatablePvP/ECheck"
+description: "Плагин на проверки для сервера EvatablePvP"
+authors: [iEatMeat, dobr_bobr2]
+main: ru.evatablepvp.echeck.Main
+api-version: 1.13
+commands:
+  echeck:
+    usage: "/echeck [reload]"
+    description: "Управляет плагином ECheck"
+  check:
+    usage: "/check (call/release) [игрок]"
+    description: "Управление проверками"
+    permission: echeck.check
+    aliases: freeze
